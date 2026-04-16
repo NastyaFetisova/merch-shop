@@ -1,0 +1,18 @@
+{
+  "name": "merch-shop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/NastyaFetisova/merch-shop.git",
+  "author": "Nastya <fet_nas@mail.ru>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"yarn --cwd backend dev\" \"yarn --cwd frontend start\"",
+    "backend": "yarn --cwd backend dev",
+    "frontend": "yarn --cwd frontend start",
+    "install-all": "yarn --cwd backend && yarn --cwd frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
