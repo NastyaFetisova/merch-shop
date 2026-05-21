@@ -4,7 +4,7 @@ const db = require('../config/db');
 // Получить все товары
 router.get('/', async (req, res) => {
     try {
-        const [rows] = await db.query('SELECT * FROM products WHERE is_active = 1');
+        const [rows] = await db.query('SELECT * FROM products');
         res.json({ success: true, products: rows });
     } catch (error) {
         console.error('Ошибка БД:', error);
