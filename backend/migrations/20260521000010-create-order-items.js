@@ -2,65 +2,51 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('cart_items', {
+    await queryInterface.createTable('order_items', {
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         autoIncrement: true,
+        primaryKey: true,
         allowNull: false
       },
-      user_id: {
+      order_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'users',
+          model: 'orders',
           key: 'id'
         },
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      product_id: {
-        type: Sequelize.INTEGER,
+      product_size: {
+        type: Sequelize.BIGINT,
         allowNull: false,
         references: {
-          model: 'products',
+          model: 'product_sizes',
           key: 'id'
         },
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      size_id: {
+      count: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'sizes',
-          key: 'id'
-        },
-        onDelete: 'SET NULL'
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-        defaultValue: 1,
         allowNull: false
       },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
       }
-    });
-
-    // Уникальный индекс
-    await queryInterface.addIndex('cart_items', ['user_id', 'product_id', 'size_id'], {
-      unique: true,
-      name: 'unique_cart_item'
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('cart_items');
+    await queryInterface.dropTable('order_items');
   }
 };

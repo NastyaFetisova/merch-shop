@@ -5,41 +5,23 @@ module.exports = {
     await queryInterface.createTable('categories', {
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         autoIncrement: true,
+        primaryKey: true,
         allowNull: false
       },
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: false
-      },
-      slug: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-        unique: true
-      },
-      parent_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'categories',
-          key: 'id'
-        },
-        onDelete: 'SET NULL'
-      },
-      sort_order: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
       },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
       }
     });
   },

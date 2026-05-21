@@ -2,45 +2,50 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('product_sizes', {
-      product_id: {
+    await queryInterface.createTable('order_statuses', {
+      id: {
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
+        allowNull: false
+      },
+      order_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'products',
+          model: 'orders',
           key: 'id'
         },
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      size_id: {
+      status_id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
         references: {
-          model: 'sizes',
+          model: 'status',
           key: 'id'
         },
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      stock_by_size: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
+      status_time: {
+        type: Sequelize.BIGINT
       },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
       }
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('product_sizes');
+    await queryInterface.dropTable('order_statuses');
   }
 };
