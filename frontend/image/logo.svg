@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="80" >
+  <!-- <rect width="400" height="400" fill="#111111"/> -->
+  
+  <!-- Только корона -->
+  <polygon points="200,100 165,190 182,190 200,145 218,190 235,190 200,100" 
+           fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="miter"/>
+  
+  <polygon points="200,115 175,185 188,185 200,152 212,185 225,185 200,115" 
+           fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- KIX -->
+  <text x="200" y="270" text-anchor="middle" font-family="'Impact', 'Arial Black', sans-serif" 
+        fill="#ffffff" font-size="72" letter-spacing="14">Noxis</text>
+  
+  <line x1="90" y1="295" x2="310" y2="295" stroke="#ffffff" stroke-width="2"
+        stroke-dasharray="100 8 50 10 30 6"/>
+  
+  <!-- <text x="200" y="335" text-anchor="middle" font-family="'Courier New', monospace" 
+        fill="#666" font-size="12" letter-spacing="5">CHAOS MERCH</text> -->
+</svg>

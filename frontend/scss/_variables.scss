@@ -1,0 +1,34 @@
+//
+
+$minHeight: 80px;
+$globpadding: 40px;
+
+
+//mixin
+@mixin flexrow {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+@mixin flexcolm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@mixin image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@mixin btn-outline {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    transition: all 0.3s;
+}

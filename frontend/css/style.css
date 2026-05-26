@@ -1,0 +1,103 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+}
+
+body {
+  background-color: black;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  min-height: 80px;
+  background-color: rgb(0, 0, 0);
+  box-sizing: border-box;
+}
+header .header__content {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.main__person {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../image/main.jpg");
+  min-height: calc(100vh - 80px);
+  position: relative;
+}
+.main__person .main__btns {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.main__person .main__btns .main__btn-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  transition: all 0.3s;
+  font-size: 20px;
+}
+.main__person .main__btns .main__btn-outline:hover {
+  background: white;
+  color: black;
+}
+
+.catalog {
+  display: grid;
+  grid-template-columns: 280px 1fr; /* сайдбар 280px, карточки всё остальное */
+  gap: 30px;
+}
+
+.catalog__products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* адаптивные карточки */
+  gap: 30px;
+  padding: 20px 40px 20px 0;
+}
+.catalog__products .card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+}
+.catalog__products .card h2 {
+  font-size: 22px;
+}
+.catalog__products .card p {
+  font-size: 22px;
+}
+.catalog__products .card .card__photo img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: auto;
+}
+.catalog__products .card .card__buy {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  border-radius: 20px;
+  padding: 5px 10px;
+  transition: all 0.3s;
+}/*# sourceMappingURL=style.css.map */

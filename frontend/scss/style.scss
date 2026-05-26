@@ -1,0 +1,93 @@
+@import 'variables';
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: rgb(255, 255, 255)
+}
+body {
+    background-color:black;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header {
+    min-height: $minHeight;
+    background-color: rgb(0, 0, 0);
+    box-sizing: border-box;
+
+    .header__content {
+        @include flexrow;
+        justify-content: space-between;
+        padding: 0 $globpadding;
+    }
+}
+
+.main__person {
+    @include image;
+    background-image: url('../image/main.jpg');
+    min-height: calc(100vh - #{$minHeight});
+    position: relative;
+
+    .main__btns {
+        @include flexrow;
+        justify-content: center;
+        gap: 20px;
+        position: absolute;
+        bottom: 60px;
+        left: 0;
+        right: 0;
+        text-align: center;
+
+        .main__btn-outline {
+           @include btn-outline;
+            font-size: 20px;
+        }
+
+        .main__btn-outline:hover {
+            background: white;
+
+            color: black;
+        }
+    }
+}
+
+.catalog {
+    display: grid;
+    grid-template-columns: 280px 1fr;  /* сайдбар 280px, карточки всё остальное */
+    gap: 30px;
+}
+
+.catalog__products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* адаптивные карточки */
+    gap: 30px;
+    padding: 20px $globpadding  20px 0;
+
+        .card {
+            
+            @include flexcolm;
+            gap: 7px;
+            h2 {
+                font-size: 22px
+            }
+            p {
+                font-size: 22px
+            }
+            .card__photo {
+                img {
+                    @include image;
+                    width: 100%;
+                    height: auto;
+                }
+            }
+           .card__buy {
+            @include btn-outline;
+           }
+        }
+}
