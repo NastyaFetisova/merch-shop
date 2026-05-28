@@ -15,13 +15,13 @@ INSERT INTO products (name, price, description, image_url) VALUES
 INSERT INTO product_categories (product_id, category_id) VALUES 
 (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1);
 
-INSERT INTO product_sizes (product_id, size_id) VALUES 
-(1, 1), (1, 2), (1, 3), (1, 4),
-(2, 1), (2, 2), (2, 3), (2, 4),
-(3, 1), (3, 2), (3, 3), (3, 4),
-(4, 1), (4, 2), (4, 3), (4, 4),
-(5, 1), (5, 2), (5, 3), (5, 4),
-(6, 1), (6, 2), (6, 3), (6, 4);
+INSERT INTO product_sizes (product_id, size_id, quantity) VALUES 
+(1, 1, 50), (1, 2, 50), (1, 3, 50), (1, 4, 50),
+(2, 1, 50), (2, 2, 50), (2, 3, 50), (2, 4, 50),
+(3, 1, 50), (3, 2, 50), (3, 3, 50), (3, 4, 50),
+(4, 1, 50), (4, 2, 50), (4, 3, 50), (4, 4, 50),
+(5, 1, 50), (5, 2, 50), (5, 3, 50), (5, 4, 50),
+(6, 1, 50), (6, 2, 50), (6, 3, 50), (6, 4, 50);
 
 
 INSERT INTO products (name, price, description, image_url) VALUES 
@@ -37,11 +37,11 @@ INSERT INTO product_categories (product_id, category_id) VALUES
 (10, 2); -- ХУДИ КОВБОИ СЕВЕРА ЧЕРНЫЙ
 
 -- Добавление всех размеров (S=1, M=2, L=3, XL=4) к каждому товару
-INSERT INTO product_sizes (product_id, size_id) VALUES 
-(7, 1), (7, 2), (7, 3), (7, 4),
-(8, 1), (8, 2), (8, 3), (8, 4),
-(9, 1), (9, 2), (9, 3), (9, 4),
-(10, 1), (10, 2), (10, 3), (10, 4);
+INSERT INTO product_sizes (product_id, size_id, quantity) VALUES 
+(7, 1, 50), (7, 2, 40), (7, 3, 40), (7, 4, 50),
+(8, 1, 50), (8, 2, 40), (8, 3, 40), (8, 4, 50),
+(9, 1, 50), (9, 2, 40), (9, 3, 40), (9, 4, 50),
+(10, 1, 50), (10, 2, 40), (10, 3, 40), (10, 4, 50);
 
 
 INSERT INTO products (name, price, description, image_url) VALUES 
@@ -55,10 +55,10 @@ INSERT INTO product_categories (product_id, category_id) VALUES
 (13, 3);  -- ШКОЛЬНЫЕ БРЮКИ
 
 -- Добавление всех размеров (S=1, M=2, L=3, XL=4) к каждому товару
-INSERT INTO product_sizes (product_id, size_id) VALUES 
-(11, 1), (11, 2), (11, 3), (11, 4),
-(12, 1), (12, 2), (12, 3), (12, 4),
-(13, 1), (13, 2), (13, 3), (13, 4);
+INSERT INTO product_sizes (product_id, size_id, quantity) VALUES 
+(11, 1, 50), (11, 2, 50), (11, 3, 50), (11, 4, 50),
+(12, 1, 50), (12, 2, 50), (12, 3, 50), (12, 4, 50),
+(13, 1, 50), (13, 2, 50), (13, 3, 50), (13, 4, 50);
 
 
 INSERT INTO products (name, price, description, image_url) VALUES 
@@ -75,11 +75,11 @@ INSERT INTO product_categories (product_id, category_id) VALUES
 
 -- Добавление размеров для аксессуаров
 -- Для кепок (размеры: S=1, M=2, L=3, XL=4) - обычно один размер или S/M/L
-INSERT INTO product_sizes (product_id, size_id) VALUES 
-(14, 1), (14, 2), (14, 3),  -- Кепки: S, M, L
-(16, 1), (16, 2), (16, 3);  -- Кепки: S, M, L
+INSERT INTO product_sizes (product_id, size_id, quantity) VALUES 
+(14, 1, 50), (14, 2, 50), (14, 3, 50),  -- Кепки: S, M, L
+(16, 1, 50), (16, 2, 50), (16, 3, 50);  -- Кепки: S, M, L
 
 -- Для носков (обычно один размер - универсальный)
-INSERT INTO product_sizes (product_id, size_id) VALUES 
-(15, 2),  -- Носки черные: M (универсальный)
-(17, 2);  -- Носки белые: M (универсальный)
+INSERT INTO product_sizes (product_id, size_id, quantity) VALUES 
+(15, 2, 150),  -- Носки черные: M (универсальный)
+(17, 2, 150);  -- Носки белые: M (универсальный)

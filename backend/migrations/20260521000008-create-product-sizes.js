@@ -38,6 +38,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       }
     });
   },
