@@ -24,10 +24,35 @@ header {
 
     .header__content {
         @include flexrow;
+        min-height: $minHeight;
+        // text-align: center;
         justify-content: space-between;
         padding: 0 $globpadding;
+
+        .menu {
+            @include flexrow;
+            gap: $gapmin;
+
+            a {
+                font-weight: 600;
+                font-size: 20px;
+            }
+        }
+
+        .icons {
+            @include flexrow;
+            gap: $gapmin;
+        }
+
+        .logo {
+            line-height: 0;
+            /* убирает лишние отступы у SVG */
+        }
     }
+
 }
+
+
 
 .main__person {
     @include image;
@@ -72,40 +97,89 @@ header {
     gap: 30px;
     padding: 20px $globpadding 20px 0;
 
-    .card {
 
+    .card {
+        height: 100%;
         @include flexcolm;
         gap: 7px;
 
-        h2 {
-            font-size: 22px
-        }
-
+        h2,
         p {
             font-size: 22px
         }
 
+
         .card__photo {
+            overflow: hidden;   
             img {
                 @include image;
                 width: 100%;
                 height: 350px;
                 object-fit: cover;
+                transition: all 0.3s ease;
+            }
+            img:hover {
+                 transform: scale(1.08);
             }
         }
 
         .card__buy {
             @include btn-outline;
         }
+
+        
+
+        .card__name {
+            flex: 1;
+            /* название занимает всё свободное место */
+        }
     }
 }
+.modal__select,
+.input__count {
+    cursor: pointer;
+    background: transparent;           /* убрать фон */
+    border:none;   
+           /* рамка */
+    // border-radius: 8px;                /* скругление */
+    padding: 5px 5px;                /* отступы внутри */
+    color: white;                      /* цвет текста */
+    font-size: 16px;                   /* размер шрифта */
+    outline: none;                     /* убрать синюю обводку при фокусе */
+    transition: all 0.3s ease;         /* плавные переходы */
+}
+.input__count:hover {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); 
+}
+.modal__select:focus,
+.input__count:focus {
+     border-color: white;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+
+/* Стиль для option (выпадающих пунктов) */
+.modal__select option {
+    background: #1a1a1a;               /* фон опций */
+    color: white;
+}
+/* Убрать стрелки вверх/вниз у input number */
+.input__count::-webkit-inner-spin-button,
+.input__count::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
 
 .catalog__filters {
     margin: 20px 0;
     background: #1a1a1a;
     padding: 20px;
     // border-radius: 12px;
-    height: fit-content; // чтобы не растягивался на всю высоту
+    height: fit-content;
+
+    // чтобы не растягивался на всю высоту
 }
 
 .filters {
@@ -234,5 +308,59 @@ footer {
         }
 
 
+    }
+}
+
+// Модалка
+
+.modal__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.modal {
+    box-shadow: 4px 4px 17px rgba(255, 255, 255, 0.2);
+    position: relative;
+    color: black;
+    @include flexcolm;
+    background-color: #111;
+    width: 700px;
+    height: 400px;
+
+    // gap: 20px;
+    &__text {
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__close {
+      
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        transition: all 0.3s ease;
+    }
+    &__close:hover {
+        transform: scale(1.25);
+    }
+
+    &__photo img {
+        // @include image;
+
+        width: 350px;
+        height: auto;
+    }
+
+    &__add {
+        @include btn-outline;
+    }
+    &__price {
+        flex: 1;
     }
 }

@@ -20,7 +20,34 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Ошибка:', error);
         }
     }
-    getData();
+    async function getModal() {
+        try {
+            await getData();
+            const modalOverlay = document.querySelector('.modal-overlay');
+            const modal = document.querySelector('.modal');
+            const modalClose = document.querySelector('.modal__close');
+            const catalogProducts = document.querySelector('.catalog__products');
+            catalogProducts.addEventListener('click', function (e) {
+                if (e.target.closest('.card__buy')) {
+                    modalOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+                modal.addEventListener('click', function (e) {
+                    if (e.target.closest('.modal__close') && modalOverlay.classList.contains('active')) {
+                        modalOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                })
+
+            })
+
+        } catch (error) {
+            console.error('Ошибка:', error)
+        }
+    }
+
+    getModal();
+    // console.log("JJJ");
 })
 
 

@@ -3,7 +3,7 @@
 $minHeight: 80px;
 $globpadding: 40px;
 $dark: #1a1a1a;
-
+$gapmin: 20px;
 
 //mixin
 @mixin flexrow {
@@ -29,7 +29,42 @@ $dark: #1a1a1a;
     background: transparent;
     border: 2px solid white;
     color: white;
-    border-radius: 20px;
+    // border-radius: 20px;
     padding: 5px 10px;
     transition: all 0.3s;
+
+    &:hover {
+        background: #2f2f2f;
+    }
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0; // прозрачный ,когда скрыт
+    visibility: hidden;
+    transition: opacity 0.3s ease visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+// с точки зрения скрипта
