@@ -50,6 +50,15 @@
     <main>
         <div class="main__content">
             <div class="main__person">
+                <!-- ВИДЕО-ФОН -->
+                <div class="video-background">
+                    <video autoplay muted loop playsinline>
+                        <!-- <source src="./image/video3.mp4" type="video/mp4"> -->
+                        Твой браузер не поддерживает тег video.
+                    </video>
+                </div>
+
+                <!-- КНОПКИ ОСТАЮТСЯ -->
                 <div class="main__btns">
                     <button class="main__btn-outline">Смотреть мерч</button>
                 </div>
@@ -119,7 +128,7 @@
                 </aside>
                 <div class="catalog__products">
                     <template id="cardTemplate">
-                        <div class="card">
+                        <div class="card" data-id="">
                             <div class="card__photo">
                                 <img src="" alt="">
                             </div>
@@ -167,19 +176,16 @@
                     <div class="modal__size">
                         <label class="modal__label">Размер: </label>
                         <select name="size" class="modal__select">
-                            <option value="1">S</option>
-                            <option value="2">M</option>
-                            <option value="3">L</option>
-                            <option value="4">XL</option>
+                           
                         </select>
                     </div>
                     <div class="modal__count">
                         <label for="">Количество: </label>
-                        <input type="number" name="count" class="input__count" min="1" step="1" required>
+                        <input type="number" name="count" class="input__count" min="1" step="1" value="1" required>
                     </div>
                     <div class="modal__price">
                         <p>Цена:</p>
-                        <p>ну как-то цену посчитать я хз</p>
+                        <p class="modal__price-total"></p>
 
                     </div>
                     <button class="modal__add ">Добавить в заказ</button>
