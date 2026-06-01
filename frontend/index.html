@@ -25,7 +25,7 @@
             </div>
             <div class="icons">
                 <div class="order">
-                    <a href="#">
+                    <a href="./cart.html">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="9" cy="21" r="1"></circle>
@@ -53,7 +53,7 @@
                 <!-- ВИДЕО-ФОН -->
                 <div class="video-background">
                     <video autoplay muted loop playsinline>
-                        <!-- <source src="./image/video3.mp4" type="video/mp4"> -->
+                        <source src="./image/1.webm" type="video/webm">
                         Твой браузер не поддерживает тег video.
                     </video>
                 </div>
@@ -87,16 +87,19 @@
                             <label class="filters__label">Размер</label>
                             <div class="filters__sizes">
                                 <label class="filters__size">
-                                    <input type="checkbox" name="size[]" value="S"> S
+                                    <input type="radio" name="size" value="" checked> Все
                                 </label>
                                 <label class="filters__size">
-                                    <input type="checkbox" name="size[]" value="M"> M
+                                    <input type="radio" name="size" value="S"> S
                                 </label>
                                 <label class="filters__size">
-                                    <input type="checkbox" name="size[]" value="L"> L
+                                    <input type="radio" name="size" value="M"> M
                                 </label>
                                 <label class="filters__size">
-                                    <input type="checkbox" name="size[]" value="XL"> XL
+                                    <input type="radio" name="size" value="L"> L
+                                </label>
+                                <label class="filters__size">
+                                    <input type="radio" name="size" value="XL"> XL
                                 </label>
                             </div>
                         </div>
@@ -176,7 +179,7 @@
                     <div class="modal__size">
                         <label class="modal__label">Размер: </label>
                         <select name="size" class="modal__select">
-                           
+
                         </select>
                     </div>
                     <div class="modal__count">
@@ -196,6 +199,7 @@
 
     </div>
     <script src="./script.js"></script>
+
 </body>
 
 </html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/cart__style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header__content">
+            <nav class="menu">
+                <a href="#">Мерч</a>
+                <a href="#">Как заказать</a>
+                <a href="#">Как ухаживать</a>
+            </nav>
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="./image/logo.svg" alt="logo">
+                </a>
+            </div>
+            <div class="icons">
+                <div class="order">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="admin">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+                            <circle cx="12" cy="8" r="4" fill="none" stroke="white" stroke-width="1.5" />
+                            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="white" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main>
+
+
+        <template id="order-card">
+            <div class="cart-item">
+                <div class="cart-item__img">
+                    <img src="./image/ex.png" class="cart-item__image" alt="Фото товара">
+                </div>
+                <div class="cart-item__wrapper">
+                    <div class="cart-item__wrapper-inf">
+                        <p class="cart-item__name">Футболка </p>
+                        <p class="cart-item__size">M</p>
+                        <p class="cart-item__quantity">1 шт</p>
+                    </div>
+                    <div class="cart-item__wrapper-close-pr">
+                        <svg class="cart-item__close" xmlns="http://www.w3.org/2000/svg" width="23" height="23"
+                            viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <p class="cart-item__price">2300 р</p>
+                    </div>
+
+                </div>
+            </div>
+        </template>
+        <div class="cart-items"></div>
+
+        <div class="form-wrapper">
+            <form class="form">
+                <h3>Заполните форму</h3>
+                <input type="text" placeholder="Иван Иванов" class="form__name" name="">
+                <input type="tel" placeholder="+ 7 999 999 99 99" class="form__phone name=">
+                <input type="email" placeholder="ivan@example.com" class="form__email" name="">
+                <input type="text" placeholder="ул. Примерная, д. 1" class="form__address" name="">
+                <input type="text" placeholder="Москва" class="form__city" name="">
+                <div class="form__btn-wrapper">
+                    <p>Итого: </p>
+                    <button type="button">Оформить заказ</button>
+                </div>
+            </form>
+        </div>
+
+
+    </main>
+    <footer>
+        <div class="footer__container">
+            <div>© 2026 KIX. Учебный проект. Все товары и изображения принадлежат их владельцам.</div>
+            <div>
+                <a href="#">Telegram</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./cart.js"></script>
+</body>
+
+</html>

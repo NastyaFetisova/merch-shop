@@ -1,13 +1,16 @@
+
 'use strict';
 document.addEventListener('DOMContentLoaded', function () {
     const template = document.getElementById('cardTemplate');
 
+    let allProducts = [];
 
-
-    async function getData() {
+    async function getData(url) {
         try {
-            const response = await fetch('http://localhost:5000/api/products');
+            const response = await fetch(url);
             const data = await response.json();
+            allProducts = data.products;
+            document.querySelector('.catalog__products').innerHTML = '';
             data.products.forEach(element => {
                 const clone = template.content.cloneNode(true);
                 clone.querySelector('.card__photo img').src = element.image_url;
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function getModal() {
         try {
-            await getData();
+            await getData('http://localhost:5000/api/products');
             const modalOverlay = document.querySelector('.modal-overlay');
             const modal = document.querySelector('.modal');
             const modalClose = document.querySelector('.modal__close');
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                     if (cardId) {
+                        modal.dataset.productId = cardId;
                         await getCardAndSize(cardId, modal);
                     }
 
@@ -50,12 +54,67 @@ document.addEventListener('DOMContentLoaded', function () {
                     modalOverlay.classList.remove('active');
                     document.body.style.overflow = '';
                 }
+            });
+
+            //Добавить в заказ
+            modal.addEventListener('click', function (e) {
+                if (e.target.closest('.modal__add')) {
+                    const productId = modal.dataset.productId;
+                    const productSizeId = modal.querySelector('.modal__select option:checked').dataset.productSizeId;
+                    const sizeName = modal.querySelector('.modal__select option:checked').textContent;
+                    const productName = modal.querySelector('.modal__name p').textContent;
+                    const productPhoto = modal.querySelector('.modal__photo img').src;
+                    const productCount = modal.querySelector('.input__count').value;
+                    const priceOne = modal.querySelector('.modal__price-total').dataset.price;
+                    const priceTotal = Number(productCount) * Number(priceOne);
+
+                    const cartItem = {
+                        productId: Number(productId),
+                        productSizeId: Number(productSizeId),
+                        name: productName,
+                        size: sizeName,
+                        productPhoto: productPhoto,
+                        quantity: Number(productCount),
+                        price: Number(priceOne),
+                        total: priceTotal,
+                    };
+
+                    addTocard(cartItem);
+
+                }
             })
         } catch (error) {
             console.error('Ошибка:', error)
         }
     }
 
+    function addTocard(newItem) {
+
+        let cart = localStorage.getItem('cart');
+
+        if (cart === null) {
+            cart = [];
+        } else {
+            // превращает строку обратно в массив объектов
+            cart = JSON.parse(cart);
+        }
+
+        const existingIndex = cart.findIndex(item =>
+            item.productId === newItem.productId &&
+            item.productSizeId === newItem.productSizeId
+        );
+        if (existingIndex !== -1) {
+            cart[existingIndex].quantity += newItem.quantity;
+            cart[existingIndex].total = cart[existingIndex].price * cart[existingIndex].quantity;
+        } else {
+            cart.push(newItem);
+        }
+
+        // в JSON формат обратно превращаем
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        console.log('Корзинна обновлена', cart);
+    }
 
     async function getCardAndSize(id, modal) {
         try {
@@ -81,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const option = document.createElement('option');
                 option.value = size.size_id;
                 option.textContent = size.size_name;
+                option.dataset.productSizeId = size.product_size_id;
                 if (size.quantity == 0) {
                     option.disabled = true;
                 }
@@ -92,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
     const inputCount = document.querySelector('.input__count');
     const priceTotalElem = document.querySelector('.modal__price-total');
 
@@ -101,10 +162,38 @@ document.addEventListener('DOMContentLoaded', function () {
             priceTotalElem.textContent = Number(e.target.value) * Number(onePrice) + ' ₽';
         }
 
+    });
+
+    getModal();
+
+    //фильтрация формы
+
+    const filterForm = document.querySelector('.filters');
+    filterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const category = filterForm.querySelector('select[name = "category"]').value;
+        const sizeRadio = filterForm.querySelector('input[name="size"]:checked');
+        const sizeValue = sizeRadio ? sizeRadio.value : null;
+
+        const priceForm = filterForm.querySelector('input[name="price_from"]').value;
+        const priceTo = filterForm.querySelector('input[name="price_to"]').value;
+        const sort = filterForm.querySelector('select[name="sort"]').value;
+
+        const params = {};
+        if (category) params.category = category;
+        if (sizeValue && sizeValue !== '') params.size_id = sizeValue;
+        if (priceForm) params.price_from = priceForm;
+        if (priceTo) params.price_to = priceTo;
+        if (sort) params.sort = sort;
+
+        const searchParams = new URLSearchParams(params).toString();
+
+        const urlSort = `http://localhost:5000/api/products/filter?${searchParams}`;
+
+        await getData(urlSort);
     })
 
 
-    getModal();
 
 
 })
