@@ -12,7 +12,7 @@ function validateError(btn, form) {
         let hasError = false;
         let errorText = '';
 
-        const oldError = input.nextElementSibling;;
+        const oldError = input.nextElementSibling;
         if (oldError && oldError.classList.contains('error-message')) {
             oldError.remove();
         }
@@ -47,8 +47,8 @@ function validateError(btn, form) {
             }
         }
         if (input.type === "number" && input.name === "count") {
-            if (Number(input.value) > 55) {
-                errorText = "Можно заказать не более 55 единиц товара";
+            if (Number(input.value) >= 15) {
+                errorText = "Можно заказать не более 15 единиц товара";
                 hasError = true;
                 isValid = false;
             }

@@ -75,7 +75,7 @@
                         <div class="filters__group">
                             <label class="filters__label">Категория</label>
                             <select name="category" class="filters__select">
-                                <option value="">Все</option>
+                                <option value="" selected>Все</option>
                                 <option value="1">Футболки и лонгсливы</option>
                                 <option value="2">Худи и толстовки</option>
                                 <option value="3">Штаны</option>
@@ -118,7 +118,7 @@
                         <div class="filters__group">
                             <label class="filters__label">Сортировка</label>
                             <select name="sort" class="filters__select">
-                                <option value="price_asc">По возрастанию цены</option>
+                                <option value="price_asc" selected>По возрастанию цены</option>
                                 <option value="price_desc">По убыванию цены</option>
                             </select>
                         </div>
@@ -126,7 +126,7 @@
                         <!-- Кнопки -->
                         <div class="filters__buttons">
                             <button type="submit" class="filters__submit">Применить</button>
-                            <a href="/catalog" class="filters__reset">Сбросить</a>
+                            <button class="filters__reset">Сбросить</button>
                         </div>
                     </form>
                 </aside>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="modal__count">
                         <label for="">Количество: </label>
-                        <input type="number" name="count" class="input__count"  value="1" >
+                        <input type="number" name="count" class="input__count" value="1">
                     </div>
                     <div class="modal__price">
                         <p>Цена:</p>

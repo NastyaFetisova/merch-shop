@@ -2,14 +2,18 @@
 document.addEventListener('DOMContentLoaded', function () {
     const template = document.getElementById('cardTemplate');
 
+
     let allProducts = [];
 
     async function getData(url) {
+        console.log('getData вызвана, url:', url);
         try {
+
+
             const response = await fetch(url);
             const data = await response.json();
-            allProducts = data.products;
             document.querySelector('.catalog__products').innerHTML = '';
+            allProducts = data.products;
             data.products.forEach(element => {
                 const clone = template.content.cloneNode(true);
                 clone.querySelector('.card__photo img').src = element.image_url;
@@ -119,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // в JSON формат обратно превращаем
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        console.log('Корзинна обновлена', cart);
     }
 
     async function getCardAndSize(id, modal) {
@@ -163,14 +166,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceTotalElem = document.querySelector('.modal__price-total');
 
     inputCount.addEventListener('input', function (e) {
+        //считать цену товаров
         const onePrice = +priceTotalElem.getAttribute('data-price');
         const totalPrice = +e.target.value;
-        if (onePrice && totalPrice > 0 && Number.isInteger(totalPrice) && totalPrice < 55) {
+        if (onePrice && totalPrice > 0 && Number.isInteger(totalPrice) && totalPrice <= 15) {
             priceTotalElem.textContent = totalPrice * onePrice + ' ₽';
         } else {
             priceTotalElem.textContent = "-"
         }
-
+        // убрать див с ошибкой при инпуте
+        const divError = inputCount.nextElementSibling;
+        if (divError && divError.classList.contains('error-message')) {
+            divError.remove();
+        }
     });
 
     getModal();
@@ -178,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //фильтрация формы
 
     const filterForm = document.querySelector('.filters');
+    // отрисовка карточек после фильтрации
     filterForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const category = filterForm.querySelector('select[name = "category"]').value;
@@ -200,9 +209,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const urlSort = `http://localhost:5000/api/products/filter?${searchParams}`;
 
         await getData(urlSort);
+    });
+
+    //кнопка Сбросить 
+    filterForm.addEventListener('click', async (e) => {
+        if (e.target.closest('.filters__reset')) {
+            const catalogProducts = document.querySelector('.catalog__products');
+            filterForm.reset();
+            catalogProducts.innerHTML = '';
+            await getData('http://localhost:5000/api/products');
+        }
+
     })
-
-
 
 
 })

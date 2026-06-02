@@ -91,13 +91,18 @@ async function allSum() {
     }
 
 }
-
+// валидация формы
 const formCart = document.querySelector('.form');
 const formBtn = formCart.querySelector('.form__btn');
-
-
 
 formBtn.addEventListener('click', (e) => {
     e.preventDefault();
     validateError(formBtn, formCart);
+});
+
+formCart.addEventListener('input', (e) => {
+    const divError = e.target.nextElementSibling;
+    if (divError && divError.classList.contains('error-message')) {
+        divError.remove();
+    }
 })
