@@ -91,14 +91,60 @@ async function allSum() {
     }
 
 }
-// валидация формы
+// валидация формы и сбор заказа
 const formCart = document.querySelector('.form');
 const formBtn = formCart.querySelector('.form__btn');
 
-formBtn.addEventListener('click', (e) => {
+formBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    validateError(formBtn, formCart);
+    if (validateError(formBtn, formCart)) {
+        return;
+    }
+
+    //собираем данные
+    const name = formCart.querySelector('.form__name').value;
+    const phone = formCart.querySelector('.form__phone').value;
+    const email = formCart.querySelector('.form__email').value;
+    const address = formCart.querySelector('.form__address').value;
+    let cart = localStorage.getItem('cart');
+    if (cart === null || cart === "[]") {
+        alert('Ваша корзина пуста');
+        return;
+    }
+    cart = JSON.parse(cart);
+
+    const items = cart.map(item => ({
+        product_size_id: item.productSizeId,
+        count: item.quantity
+    }));
+
+    const orderData = {
+        user: { name, phone, email },
+        address: address,
+        items: items
+    };
+
+    try {
+        const response = await fetch('http://localhost:5000/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            alert('Заказ оформлен!');
+            localStorage.removeItem('cart');
+            renderCart();
+            formCart.reset();
+        }
+    }
+    catch (error) {
+        console.error('Ошибка:', error);
+        alert('Ошибка соединения с сервером');
+    }
 });
+
 
 formCart.addEventListener('input', (e) => {
     const divError = e.target.nextElementSibling;

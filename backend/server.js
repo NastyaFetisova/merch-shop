@@ -9,6 +9,7 @@ app.use(express.json());
 
 // Подключаем маршруты
 app.use('/api/products', require('./routes/products'));
+app.use('/api/orders', require('./routes/orders'));
 
 // Корневой маршрут
 app.get('/', (req, res) => {

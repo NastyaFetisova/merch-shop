@@ -113,4 +113,51 @@ router.get('/:id/sizes', async (req, res) => {
     }
 });
 
+// POST /api/products — добавить новый товар (админ)
+router.post('/', async (req, res) => {
+    const { name, price, description, image_url, category_id, sizes } = req.body;
+
+    // Простая проверка пароля (пока в заголовке)
+    const adminPassword = req.headers['admin-password'];
+    if (adminPassword !== 'admin123') {
+        return res.status(403).json({ success: false, message: 'Недостаточно прав' });
+    }
+
+    if (!name || !price || !category_id || !sizes || sizes.length === 0) {
+        return res.status(400).json({ success: false, message: 'Не все данные переданы' });
+    }
+
+    try {
+        // 1. Добавить товар
+        const [productResult] = await db.query(
+            'INSERT INTO products (name, price, description, image_url) VALUES (?, ?, ?, ?)',
+            [name, price, description || '', image_url || '']
+        );
+        const productId = productResult.insertId;
+
+        // 2. Привязать категорию
+        await db.query(
+            'INSERT INTO product_categories (product_id, category_id) VALUES (?, ?)',
+            [productId, category_id]
+        );
+
+        // 3. Добавить размеры
+        for (const size of sizes) {
+            await db.query(
+                'INSERT INTO product_sizes (product_id, size_id, quantity) VALUES (?, ?, ?)',
+                [productId, size.size_id, size.quantity]
+            );
+        }
+
+        res.json({
+            success: true,
+            productId,
+            message: 'Товар успешно добавлен'
+        });
+
+    } catch (error) {
+        console.error('Ошибка при добавлении товара:', error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
 module.exports = router;
