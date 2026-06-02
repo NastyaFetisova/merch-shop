@@ -1,6 +1,12 @@
 @import 'variables';
 
 
+.error-message {
+    color: #ff6b6b;
+    font-size: 12px;
+    // margin-top: 2px;
+}
+
 * {
     margin: 0;
     padding: 0;

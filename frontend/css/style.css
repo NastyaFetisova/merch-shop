@@ -28,6 +28,11 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
+.error-message {
+  color: #ff6b6b;
+  font-size: 12px;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -1,4 +1,3 @@
-
 'use strict';
 document.addEventListener('DOMContentLoaded', function () {
     const template = document.getElementById('cardTemplate');
@@ -59,27 +58,34 @@ document.addEventListener('DOMContentLoaded', function () {
             //Добавить в заказ
             modal.addEventListener('click', function (e) {
                 if (e.target.closest('.modal__add')) {
-                    const productId = modal.dataset.productId;
-                    const productSizeId = modal.querySelector('.modal__select option:checked').dataset.productSizeId;
-                    const sizeName = modal.querySelector('.modal__select option:checked').textContent;
-                    const productName = modal.querySelector('.modal__name p').textContent;
-                    const productPhoto = modal.querySelector('.modal__photo img').src;
-                    const productCount = modal.querySelector('.input__count').value;
-                    const priceOne = modal.querySelector('.modal__price-total').dataset.price;
-                    const priceTotal = Number(productCount) * Number(priceOne);
 
-                    const cartItem = {
-                        productId: Number(productId),
-                        productSizeId: Number(productSizeId),
-                        name: productName,
-                        size: sizeName,
-                        productPhoto: productPhoto,
-                        quantity: Number(productCount),
-                        price: Number(priceOne),
-                        total: priceTotal,
-                    };
+                    const modalBtn = modal.querySelector('.modal__add');
 
-                    addTocard(cartItem);
+                    if (!validateError(modalBtn, modal)) {
+                        const productId = modal.dataset.productId;
+                        const productSizeId = modal.querySelector('.modal__select option:checked').dataset.productSizeId;
+                        const sizeName = modal.querySelector('.modal__select option:checked').textContent;
+                        const productName = modal.querySelector('.modal__name p').textContent;
+                        const productPhoto = modal.querySelector('.modal__photo img').src;
+                        const productCount = modal.querySelector('.input__count').value;
+                        const priceOne = modal.querySelector('.modal__price-total').dataset.price;
+                        const priceTotal = Number(productCount) * Number(priceOne);
+
+                        const cartItem = {
+                            productId: Number(productId),
+                            productSizeId: Number(productSizeId),
+                            name: productName,
+                            size: sizeName,
+                            productPhoto: productPhoto,
+                            quantity: Number(productCount),
+                            price: Number(priceOne),
+                            total: priceTotal,
+                        };
+
+                        addTocard(cartItem);
+                    }
+
+
 
                 }
             })
@@ -157,9 +163,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceTotalElem = document.querySelector('.modal__price-total');
 
     inputCount.addEventListener('input', function (e) {
-        const onePrice = priceTotalElem.getAttribute('data-price');
-        if (onePrice) {
-            priceTotalElem.textContent = Number(e.target.value) * Number(onePrice) + ' ₽';
+        const onePrice = +priceTotalElem.getAttribute('data-price');
+        const totalPrice = +e.target.value;
+        if (onePrice && totalPrice > 0 && Number.isInteger(totalPrice) && totalPrice < 55) {
+            priceTotalElem.textContent = totalPrice * onePrice + ' ₽';
+        } else {
+            priceTotalElem.textContent = "-"
         }
 
     });
@@ -193,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         await getData(urlSort);
     })
 
+
+
+
 })
-
-

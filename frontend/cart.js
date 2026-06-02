@@ -91,3 +91,13 @@ async function allSum() {
     }
 
 }
+
+const formCart = document.querySelector('.form');
+const formBtn = formCart.querySelector('.form__btn');
+
+
+
+formBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    validateError(formBtn, formCart);
+})
