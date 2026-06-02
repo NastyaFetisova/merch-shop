@@ -193,9 +193,6 @@ document.addEventListener('DOMContentLoaded', function () {
         await getData(urlSort);
     })
 
-
-
-
 })
 
 
