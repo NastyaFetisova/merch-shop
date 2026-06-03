@@ -127,8 +127,21 @@ header .header__content .icons {
   flex-direction: row;
   gap: 20px;
 }
+header .header__content .icons svg {
+  stroke: rgba(255, 255, 255, 0.6);
+  /* серее белого */
+  transition: all 0.3s ease;
+}
+header .header__content .icons svg:hover {
+  stroke: white;
+  /* белый при ховере */
+  transform: scale(1.1);
+  /* чуть увеличивается */
+}
 header .header__content .logo {
   line-height: 0;
+  left: 50%;
+  transform: translateX(-50%);
   /* убирает лишние отступы у SVG */
 }
 
@@ -593,6 +606,15 @@ footer {
 .modal-add textarea {
   resize: vertical;
   font-family: inherit;
+}
+.modal-add .add-category {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+.modal-add .add-category option {
+  background: #1a1a1a;
+  color: white;
 }
 .modal-add .add-sizes {
   display: flex;

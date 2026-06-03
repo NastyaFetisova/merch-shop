@@ -35,21 +35,30 @@ router.post('/', async (req, res) => {
         );
         const orderId = orderResult.insertId;
 
-        // 3. Добавить товары в order_items и уменьшить количество
+        // 3. Проверить остатки перед списанием
         for (const item of items) {
-            await db.query(
-                'INSERT INTO order_items (order_id, product_size, count) VALUES (?, ?, ?)',
-                [orderId, item.product_size_id, item.count]
+            const [stock] = await db.query(
+                'SELECT quantity FROM product_sizes WHERE id = ?',
+                [item.product_size_id]
             );
 
-            // Уменьшаем количество на складе
+            if (stock.length === 0 || stock[0].quantity < item.count) {
+                return res.status(400).json({
+                    success: false,
+                    message: `Товара с id ${item.product_size_id} осталось ${stock[0]?.quantity || 0}, а вы заказали ${item.count}`
+                });
+            }
+        }
+
+        // 4. Списать товары
+        for (const item of items) {
             await db.query(
                 'UPDATE product_sizes SET quantity = quantity - ? WHERE id = ?',
                 [item.count, item.product_size_id]
             );
         }
 
-        // 4. Добавить статус заказа (статус 1 = "Новый" или "Оплачен")
+        // 5. Добавить статус заказа
         await db.query(
             'INSERT INTO order_statuses (order_id, status_id, status_time) VALUES (?, 1, NOW())',
             [orderId]

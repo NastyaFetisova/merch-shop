@@ -30,9 +30,9 @@ function showAddProductForm() {
 
 
 }
-submitProduct.addEventListener('click', async () => {
-    const error = validateError(submitProduct, modalAdd);
-    if (error) return;
+submitProduct.addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!validateAdminForm()) return;
 
     const name = modalAdd.querySelector('.add-name').value.trim();
     const price = Number(modalAdd.querySelector('.add-price').value);
@@ -91,6 +91,61 @@ inputs.forEach(input => {
     });
 });
 
-document.querySelector('.submit-remove').addEventListener('click', () => {
+document.querySelector('.submit-remove').addEventListener('click', (e) => {
+    e.preventDefault();
     document.getElementById('addProductForm').reset();
 });
+
+function validateAdminForm() {
+    let isValid = true;
+
+    // Очищаем старые ошибки
+    const oldErrors = modalAdd.querySelectorAll('.error-message');
+    oldErrors.forEach(error => error.remove());
+
+    // Название
+    const nameInput = modalAdd.querySelector('.add-name');
+    const name = nameInput.value.trim();
+    if (!name) {
+        showError(nameInput, 'Введите название товара');
+        isValid = false;
+    }
+
+    // Цена
+    const priceInput = modalAdd.querySelector('.add-price');
+    const price = priceInput.value.trim();
+    if (!price) {
+        showError(priceInput, 'Введите цену');
+        isValid = false;
+    } else if (isNaN(Number(price)) || Number(price) <= 0) {
+        showError(priceInput, 'Цена должна быть положительным числом');
+        isValid = false;
+    }
+
+    // URL изображения
+    const imageInput = modalAdd.querySelector('.add-image');
+    const image = imageInput.value.trim();
+    if (!image) {
+        showError(imageInput, 'Введите URL изображения');
+        isValid = false;
+    } else if (!image.startsWith('http://') && !image.startsWith('https://')) {
+        showError(imageInput, 'URL должен начинаться с http:// или https://');
+        isValid = false;
+    }
+
+    // Категория
+    const categorySelect = modalAdd.querySelector('.add-category');
+    if (!categorySelect.value) {
+        showError(categorySelect, 'Выберите категорию');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function showError(input, message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.classList.add('error-message');
+    errorDiv.textContent = message;
+    input.after(errorDiv);
+}

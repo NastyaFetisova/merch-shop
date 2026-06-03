@@ -24,7 +24,7 @@
   
 
   <!-- Основной текст NOXIS -->
-  <text x="310" y="125" font-family="'Arial Black', Impact, sans-serif" font-size="90" font-weight="500" text-anchor="middle" fill="url(#noxisWhite)" filter="url(#shadow)" letter-spacing="10">
+  <text x="310" y="125" font-family="'Bungee', Impact, sans-serif" font-size="90" font-weight="500" text-anchor="middle" fill="url(#noxisWhite)" filter="url(#shadow)" letter-spacing="10">
     NOXIS
   </text>
 

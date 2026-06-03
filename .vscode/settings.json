@@ -9,6 +9,8 @@
     "liveSassCompile.settings.includeItems": [
         "/frontend/scss/style.scss",
         "/frontend/scss/cart__style.scss",
-        "/frontend/scss/admin.scss"
+        "/frontend/scss/admin.scss",
+        "/frontend/scss/care.scss",
+        "/frontend/scss/order.scss"
     ]
 }

@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // в JSON формат обратно превращаем
         localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Товар добавлен в корзину!');
 
     }
 
@@ -222,5 +223,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     })
 
+    const scrollBtn = document.querySelector('.main__btn-outline');
 
+    scrollBtn.addEventListener('click', () => {
+        const catalog = document.querySelector('.catalog');
+        const header = document.querySelector('header');
+        const headerHeight = header.offsetHeight;
+
+        const catalogPosition = catalog.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+        window.scrollTo({
+            top: catalogPosition,
+            behavior: 'smooth'
+        });
+    });
 })

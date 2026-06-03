@@ -98,8 +98,21 @@ header .header__content .icons {
   flex-direction: row;
   gap: 20px;
 }
+header .header__content .icons svg {
+  stroke: rgba(255, 255, 255, 0.6);
+  /* серее белого */
+  transition: all 0.3s ease;
+}
+header .header__content .icons svg:hover {
+  stroke: white;
+  /* белый при ховере */
+  transform: scale(1.1);
+  /* чуть увеличивается */
+}
 header .header__content .logo {
   line-height: 0;
+  left: 50%;
+  transform: translateX(-50%);
   /* убирает лишние отступы у SVG */
 }
 
@@ -358,17 +371,25 @@ footer {
   padding: 20px;
   margin-top: 60px;
 }
-footer__container {
+footer .footer__container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 footer a {
   color: #888;
   text-decoration: none;
   margin-left: 20px;
+}
+footer a:first-child {
+  margin-left: 0;
 }
 footer a:hover {
   color: white;

@@ -1,0 +1,119 @@
+body {
+    background: linear-gradient(135deg, #0a0f2a 0%, #0a1a3a 50%, #0a0f2a 100%);
+}
+
+.order-main {
+    margin-top: 50px;
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.order-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.order-title {
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 50px;
+    background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.order-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.order-step {
+    display: flex;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateX(5px);
+    }
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+
+    h3 {
+        font-size: 22px;
+        margin-bottom: 8px;
+        color: #fff;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #bbb;
+        margin: 0;
+    }
+}
+
+.order-info {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px;
+    border-left: 4px solid #fff;
+
+    h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #bbb;
+            font-size: 16px;
+
+            &::before {
+                content: "•";
+                position: absolute;
+                left: 8px;
+                color: #fff;
+            }
+        }
+    }
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
