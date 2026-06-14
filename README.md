@@ -103,8 +103,10 @@ merch-shop/
 ### 🛠️ Технологии
 ## Фронтенд
 
-HTML5 / CSS3 (SCSS)\
+HTML5 / CSS3 (SCSS)
+
 JavaScript (ES6+)
+
 Fetch API
 
 
