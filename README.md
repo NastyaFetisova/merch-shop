@@ -87,6 +87,7 @@ yarn dev
 
 ### 📁 Структура проекта
 
+```plaintext
 merch-shop/
 ├── backend/               # Node.js + Express
 │   ├── config/            # Конфигурация БД
@@ -97,6 +98,7 @@ merch-shop/
 │   └── server.js          # Точка входа (раздаёт и API, и фронтенд)
 ├── frontend/              # HTML/CSS/JS (раздаётся через Express)
 └── README.md
+```
 
 ### 🛠️ Технологии
 ## Фронтенд
