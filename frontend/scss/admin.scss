@@ -15,14 +15,14 @@ body {
 }
 
 main {
-    flex: 1; // заставляет main растягиваться
+    flex: 1; 
 }
 
 footer {
-    margin-top: auto; // прижимает подвал вниз
+    margin-top: auto; 
 }
 
-// Модалка пароля (дополнительные стили поверх существующих)
+
 .modal-password {
     box-shadow: 1px 1px 15px rgba(91, 91, 91, 0.281);
     width: 350px;

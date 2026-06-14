@@ -222,26 +222,18 @@ header .header__content .logo {
 }
 .catalog__products .card .card__name {
   flex: 1;
-  /* название занимает всё свободное место */
 }
 
 .modal__select,
 .input__count {
   cursor: pointer;
   background: transparent;
-  /* убрать фон */
   border: none;
-  /* рамка */
   padding: 5px 5px;
-  /* отступы внутри */
   color: white;
-  /* цвет текста */
   font-size: 16px;
-  /* размер шрифта */
   outline: none;
-  /* убрать синюю обводку при фокусе */
   transition: all 0.3s ease;
-  /* плавные переходы */
 }
 
 .input__count:hover {
@@ -254,14 +246,11 @@ header .header__content .logo {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
-/* Стиль для option (выпадающих пунктов) */
 .modal__select option {
   background: #1a1a1a;
-  /* фон опций */
   color: white;
 }
 
-/* Убрать стрелки вверх/вниз у input number */
 .input__count::-webkit-inner-spin-button,
 .input__count::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -433,7 +422,6 @@ footer a:hover {
 .modal__photo img {
   max-width: 350px;
   max-height: 350px;
-  /* ограничиваем высоту */
   object-fit: contain;
 }
 .modal__add {

@@ -1,27 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');  // ← поднял в начало
 dotenv.config();
 
 const app = express();
+
+// Настройки
 app.use(cors());
 app.use(express.json());
+
+// СТАТИЧЕСКИЕ ФАЙЛЫ 
+app.use(express.static('public'));                    // для картинок (папка backend/public)
+app.use(express.static(path.join(__dirname, '../frontend'))); // для фронтенда
 
 // Подключаем маршруты
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 
-// Корневой маршрут
-app.get('/', (req, res) => {
-    res.json({
-        message: 'Сервер интернет-магазина мерча работает!',
-        endpoints: {
-            'GET /api/products': 'Список всех товаров',
-            'GET /api/products/:id': 'Товар по ID',
-            'GET /api/test': 'Проверка работы сервера'
-        }
-    });
-});
+
 
 // Тестовый маршрут
 app.get('/api/test', (req, res) => {
