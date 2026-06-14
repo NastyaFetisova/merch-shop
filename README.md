@@ -23,7 +23,8 @@
 | Корзина | Админ-панель | Фильтрация |
 |---------|-------------|-------------|
 | <img width="1920" height="921" alt="2026-06-14_22-22-45" src="https://github.com/user-attachments/assets/ac75756a-306f-4001-89ab-38d19c0feb79" />
- |<img width="1920" height="921" alt="2026-06-14_22-22-45" src="https://github.com/user-attachments/assets/ed17722d-44d3-43e2-8a09-e0ebcf26b67e" />
+ |<img width="1920" height="914" alt="2026-06-14_22-29-53" src="https://github.com/user-attachments/assets/f54aadb8-a5e2-43e8-beb5-c8e419a9d7e6" />
+
  |<img width="1920" height="911" alt="2026-06-14_22-23-20" src="https://github.com/user-attachments/assets/d34c7ef4-170c-4e9a-8a02-2c00810b7c88" />
  |
 
