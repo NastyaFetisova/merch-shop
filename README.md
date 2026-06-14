@@ -35,3 +35,86 @@
 ```bash
 git clone https://github.com/ВАШ_ЛОГИН/merch-shop.git
 cd merch-shop
+```
+
+### Шаг 2. Установить зависимости
+```bash
+cd backend
+yarn install
+```
+### Шаг 3. Настроить базу данных
+Запустите MySQL через XAMPP
+
+Создайте базу данных:
+
+```sql
+CREATE DATABASE merch_shop CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+```
+Импортируйте структуру:
+
+```bash
+yarn sequelize-cli db:migrate
+```
+(Опционально) Заполните тестовыми данными — выполните скрипт backend/seed.sql в phpMyAdmin
+
+### Шаг 4. Настроить переменные окружения
+Создайте файл backend/.env:
+
+```env
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=merch_shop
+JWT_SECRET=my_super_secret_key_123
+```
+### Шаг 5. Запустить приложение
+```bash
+cd backend
+yarn dev
+```
+Готово! Откройте сайт в браузере:
+## 👉 http://localhost:5000
+
+Никаких дополнительных действий не требуется — фронтенд уже настроен на получение данных с этого же порта.
+
+### 📁 Структура проекта
+
+merch-shop/
+├── backend/               # Node.js + Express
+│   ├── config/            # Конфигурация БД
+│   ├── migrations/        # Миграции Sequelize
+│   ├── models/            # Модели данных
+│   ├── routes/            # API маршруты
+│   ├── public/            # Статические файлы (картинки)
+│   └── server.js          # Точка входа (раздаёт и API, и фронтенд)
+├── frontend/              # HTML/CSS/JS (раздаётся через Express)
+└── README.md
+
+### 🛠️ Технологии
+## Фронтенд
+HTML5 / CSS3 (SCSS)
+JavaScript (ES6+)
+Fetch API
+
+## Бэкенд
+Node.js
+Express.js
+MySQL
+Sequelize ORM
+JWT (аутентификация)
+
+### ✨ Функционал
+✅ Просмотр каталога товаров
+✅ Фильтрация по категориям и размерам
+✅ Сортировка по цене
+✅ Модальное окно с подробной информацией о товаре
+✅ Корзина и оформление заказа
+✅ Админ-панель для управления товарами
+
+### 👥 Команда проекта
+Анастасия — фронтенд, бэкенд, дизайн, база данных
+Александр — помощь с настройкой БД и миграциями
+
+### 📄 Лицензия
+Учебный проект. Все изображения и видео используются в демонстрационных целях.
