@@ -102,9 +102,11 @@ merch-shop/
 
 ### 🛠️ Технологии
 ## Фронтенд
+```plaintext
 HTML5 / CSS3 (SCSS)
 JavaScript (ES6+)
 Fetch API
+```
 
 ## Бэкенд
 Node.js
