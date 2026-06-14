@@ -99,7 +99,7 @@ document.querySelector('.submit-remove').addEventListener('click', (e) => {
 function validateAdminForm() {
     let isValid = true;
 
-    // Очищаем старые ошибки
+    // Очистка  старых ошибок
     const oldErrors = modalAdd.querySelectorAll('.error-message');
     oldErrors.forEach(error => error.remove());
 
@@ -122,7 +122,7 @@ function validateAdminForm() {
         isValid = false;
     }
 
-    // URL изображения
+    // URL
     const imageInput = modalAdd.querySelector('.add-image');
     const image = imageInput.value.trim();
     if (!image) {
