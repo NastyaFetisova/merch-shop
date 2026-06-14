@@ -40,7 +40,7 @@
 ### Шаг 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/ВАШ_ЛОГИН/merch-shop.git
+git clone https://github.com/NastyaFetisova/merch-shop.git
 cd merch-shop
 ```
 
