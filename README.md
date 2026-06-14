@@ -14,19 +14,11 @@
 
 | Главная страница | Каталог товаров | Модальное окно |
 |----------------|----------------|----------------|
-| *<img width="1920" height="905" alt="2026-06-14_22-20-47" src="https://github.com/user-attachments/assets/422d40a9-aec6-43bd-b735-f4fcb44a272a" />
-* | *[<img width="1920" height="920" alt="2026-06-14_22-21-21" src="https://github.com/user-attachments/assets/94b35aa3-239e-4857-b0e6-ddc3b9d1c206" />
-
-]* |<img width="1920" height="914" alt="2026-06-14_22-22-08" src="https://github.com/user-attachments/assets/fd9c39b6-9dd4-4e95-b102-b022fda8df37" />
-|
+| <img width="1920" height="905" alt="Главная страница" src="https://github.com/user-attachments/assets/422d40a9-aec6-43bd-b735-f4fcb44a272a"> | <img width="1920" height="920" alt="Каталог товаров" src="https://github.com/user-attachments/assets/94b35aa3-239e-4857-b0e6-ddc3b9d1c206"> | <img width="1920" height="914" alt="Модальное окно" src="https://github.com/user-attachments/assets/fd9c39b6-9dd4-4e95-b102-b022fda8df37"> |
 
 | Корзина | Админ-панель | Фильтрация |
 |---------|-------------|-------------|
-| <img width="1920" height="921" alt="2026-06-14_22-22-45" src="https://github.com/user-attachments/assets/ac75756a-306f-4001-89ab-38d19c0feb79" />
- |<img width="1920" height="914" alt="2026-06-14_22-29-53" src="https://github.com/user-attachments/assets/f54aadb8-a5e2-43e8-beb5-c8e419a9d7e6" />
-
- |<img width="1920" height="911" alt="2026-06-14_22-23-20" src="https://github.com/user-attachments/assets/d34c7ef4-170c-4e9a-8a02-2c00810b7c88" />
- |
+| <img width="1920" height="921" alt="Корзина" src="https://github.com/user-attachments/assets/ac75756a-306f-4001-89ab-38d19c0feb79"> | <img width="1920" height="914" alt="Админ-панель" src="https://github.com/user-attachments/assets/f54aadb8-a5e2-43e8-beb5-c8e419a9d7e6"> | <img width="1920" height="911" alt="Фильтрация" src="https://github.com/user-attachments/assets/d34c7ef4-170c-4e9a-8a02-2c00810b7c88"> |
 
 ---
 
