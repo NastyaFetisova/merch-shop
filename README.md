@@ -85,6 +85,34 @@ yarn dev
 
 Никаких дополнительных действий не требуется — фронтенд уже настроен на получение данных с этого же порта.
 
+
+## 🐳 Запуск через Docker
+
+### Требования
+- Docker Desktop
+- WSL 2 (для Windows)
+
+### Команды
+```bash
+# Клонировать репозиторий
+git clone https://github.com/NastyaFetisova/merch-shop.git
+cd merch-shop
+```
+### Запустить контейнеры
+```bash
+docker compose up -d --build
+```
+
+### Выполнить миграции
+```bash
+docker exec -it merch-shop-backend sh
+yarn sequelize-cli db:migrate
+exit
+```
+
+### Открыть сайт
+http://localhost:5000
+
 ### 📁 Структура проекта
 
 ```plaintext
