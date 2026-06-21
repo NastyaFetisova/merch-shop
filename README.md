@@ -117,14 +117,29 @@ http://localhost:5000
 
 ```plaintext
 merch-shop/
-├── backend/               # Node.js + Express
-│   ├── config/            # Конфигурация БД
-│   ├── migrations/        # Миграции Sequelize
-│   ├── models/            # Модели данных
-│   ├── routes/            # API маршруты
-│   ├── public/            # Статические файлы (картинки)
-│   └── server.js          # Точка входа (раздаёт и API, и фронтенд)
-├── frontend/              # HTML/CSS/JS (раздаётся через Express)
+├── backend/                    # Node.js + Express
+│   ├── config/                 # Конфигурация БД (Sequelize)
+│   ├── migrations/             # Миграции Sequelize
+│   ├── models/                 # Модели данных
+│   ├── routes/                 # API маршруты
+│   ├── public/                 # Статические файлы (картинки товаров)
+│   ├── server.js               # Точка входа (API + фронтенд)
+│   ├── package.json
+│   └── .env                    # Переменные окружения (не в Git)
+├── frontend/                   # HTML/CSS/JS (клиентская часть)
+│   ├── css/                    # Стили
+│   ├── scss/                   # SCSS исходники
+│   ├── image/                  # Изображения для интерфейса
+│   ├── index.html              # Главная страница
+│   ├── cart.html
+│   ├── admin.html
+│   └── script.js
+├── Dockerfile                  # Инструкция для сборки Docker-образа
+├── docker-compose.yml          # Оркестрация контейнеров (backend + db)
+├── .dockerignore               # Что исключить из Docker-образа
+├── .gitignore
+├── package.json                # Зависимости проекта
+├── yarn.lock
 └── README.md
 ```
 
