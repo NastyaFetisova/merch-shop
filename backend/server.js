@@ -33,6 +33,8 @@ if (frontendPath) {
     console.warn('⚠️ Папка frontend не найдена!');
 }
 
+const imagesPath = path.join(__dirname, 'public', 'images');
+app.use('/images', express.static(imagesPath));
 app.use(express.static('public'));
 
 app.use('/api/products', require('./routes/products'));
