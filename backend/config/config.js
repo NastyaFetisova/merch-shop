@@ -5,7 +5,10 @@ module.exports = {
     database: process.env.DB_NAME || "merch_shop",
     host: process.env.DB_HOST || "db",
     port: process.env.DB_PORT || 3306,
-    dialect: "mysql"
+    dialect: "mysql",
+    dialectOptions: {
+      connectTimeout: 60000 // 60 секунд (вместо стандартных 10)
+    }
   },
   test: {
     username: "root",
