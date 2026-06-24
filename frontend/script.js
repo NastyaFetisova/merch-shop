@@ -1,6 +1,16 @@
 'use strict';
+
+// 1. Определяем базовый URL для API
+
+//    window.location.hostname содержит адрес сайта в браузере
+const hostname = window.location.hostname;
+const isLocal = (hostname === 'localhost' || hostname === '127.0.0.1');
+const API_BASE = isLocal ? 'http://localhost:5000' : '';
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const template = document.getElementById('cardTemplate');
+
 
 
     let allProducts = [];
@@ -31,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function getModal() {
         try {
-            await getData('http://localhost:5000/api/products');
+            await getData(`${API_BASE}/api/products`);
             const modalOverlay = document.querySelector('.modal-overlay');
             const modal = document.querySelector('.modal');
             const modalClose = document.querySelector('.modal__close');
@@ -128,10 +138,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function getCardAndSize(id, modal) {
         try {
-            const productRes = await fetch(`http://localhost:5000/api/products/${id}`);
+            const productRes = await fetch(`${API_BASE}/api/products/${id}`);
             const product = await productRes.json();
 
-            const sizesQuantRes = await fetch(`http://localhost:5000/api/products/${id}/sizes`);
+            const sizesQuantRes = await fetch(`${API_BASE}/api/products/${id}/sizes`);
             const sizesQuant = await sizesQuantRes.json();
 
             // добавление единичной цены
@@ -207,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const searchParams = new URLSearchParams(params).toString();
 
-        const urlSort = `http://localhost:5000/api/products/filter?${searchParams}`;
+        const urlSort = `${API_BASE}/api/products/filter?${searchParams}`;
 
         await getData(urlSort);
     });
@@ -218,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const catalogProducts = document.querySelector('.catalog__products');
             filterForm.reset();
             catalogProducts.innerHTML = '';
-            await getData('http://localhost:5000/api/products');
+            await getData(`${API_BASE}/api/products`);
         }
 
     })

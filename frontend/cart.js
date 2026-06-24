@@ -1,4 +1,12 @@
 'use strict';
+
+// 1. Определяем базовый URL для API
+
+//    window.location.hostname содержит адрес сайта в браузере
+const hostname = window.location.hostname;
+const isLocal = (hostname === 'localhost' || hostname === '127.0.0.1');
+const API_BASE = isLocal ? 'http://localhost:5000' : '';
+
 document.addEventListener('DOMContentLoaded', function () {
 
 
@@ -125,7 +133,7 @@ formBtn.addEventListener('click', async (e) => {
     };
 
     try {
-        const response = await fetch('http://localhost:5000/api/orders', {
+        const response = await fetch(`${API_BASE}/api/orders`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderData)
