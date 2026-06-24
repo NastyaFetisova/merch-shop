@@ -7,7 +7,7 @@ module.exports = {
     port: process.env.DB_PORT || 3306,
     dialect: "mysql",
     dialectOptions: {
-      connectTimeout: 60000 // 60 секунд (вместо стандартных 10)
+      connectTimeout: 120000 // 60 секунд (вместо стандартных 10)
     }
   },
   test: {
