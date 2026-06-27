@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 const databaseConfig = require('./database');
 
 const pool = mysql.createPool({
-    ...config,
+    ...databaseConfig,
     waitForConnections: true,
     connectionLimit: 10,
 });

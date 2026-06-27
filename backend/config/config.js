@@ -1,7 +1,17 @@
 const database = require('./database');
 
+const base = {
+  username: database.user,
+  password: database.password,
+  database: database.database,
+  host: database.host,
+  port: database.port,
+  dialect: "mysql"
+};
+
 module.exports = {
-  development: database,
+  development: base,
+
   test: {
     username: "root",
     password: "",
@@ -9,8 +19,14 @@ module.exports = {
     host: "localhost",
     dialect: "mysql"
   },
+
   production: {
-    ...database,
-    dialect: "mysql"
+    ...base,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
   }
 };
