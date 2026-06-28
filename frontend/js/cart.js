@@ -8,9 +8,6 @@ const isLocal = (hostname === 'localhost' || hostname === '127.0.0.1');
 const API_BASE = isLocal ? 'http://localhost:5000' : '';
 
 document.addEventListener('DOMContentLoaded', function () {
-
-
-
     allSum();
 
 });
@@ -99,6 +96,8 @@ async function allSum() {
     }
 
 }
+
+
 // валидация формы и сбор заказа
 const formCart = document.querySelector('.form');
 const formBtn = formCart.querySelector('.form__btn');

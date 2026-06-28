@@ -16,10 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let allProducts = [];
 
     async function getData(url) {
-        console.log('getData вызвана, url:', url);
+        // console.log('getData вызвана, url:', url);
         try {
-
-
             const response = await fetch(url);
             const data = await response.json();
             document.querySelector('.catalog__products').innerHTML = '';
