@@ -8,6 +8,7 @@ const API_BASE = isLocal ? 'http://localhost:5000' : '';
 // 2. Импортируем Store для добавления товаров
 import cartStore from './patterns/cartStore.js';
 import ProductCardFactory from './patterns/productCardFactory.js';
+import Cache from "./patterns/cache.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -19,11 +20,23 @@ document.addEventListener('DOMContentLoaded', function () {
     // 3. Функция получения и отрисовки товаров
     async function getData(url) {
         try {
-            const response = await fetch(url);
-            const data = await response.json();
 
-            document.querySelector('.catalog__products').innerHTML = '';
-            allProducts = data.products;
+            let data = Cache.load(url);
+
+            if (data) {
+                console.log('Каталог загружен из кэша');
+            } else {
+                console.log('Каталог загружен с сервера');
+
+                const response = await fetch(url);
+                data = await response.json();
+
+                Cache.save(url, data);
+            }
+
+            container.innerHTML = '';
+
+            allProducts = [...data.products];
 
             const fragment = ProductCardFactory.createMany(allProducts, template);
 

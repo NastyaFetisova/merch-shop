@@ -1,5 +1,7 @@
 'use strict';
 
+import Cache from './patterns/cache.js';
+
 // 1. Определяем базовый URL для API
 
 //    window.location.hostname содержит адрес сайта в браузере
@@ -71,7 +73,11 @@ submitProduct.addEventListener('click', async (e) => {
         const result = await response.json();
 
         if (result.success) {
+
+            Cache.clearProducts();
+
             alert('Товар успешно добавлен!');
+
             modalAdd.classList.remove('active');
             // Очистить форму
             modalAdd.querySelectorAll('input, textarea').forEach(el => el.value = '');
