@@ -1,4 +1,5 @@
 'use strict';
+console.log("ЗАГРУЖЕН cartStore.js");
 class CartStore {
     static #instance = null;
 
@@ -27,9 +28,10 @@ class CartStore {
 
     // 2. Сохранение в localStorage
     #saveToStorage() {
+        console.log("saveToStorage");
         try {
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert('Товар добавлен в корзину!');
+            localStorage.setItem('cart', JSON.stringify(this.#items));
+
         } catch (error) {
             console.error('Ошибка сохранения корзины:', error);
         }
@@ -37,6 +39,7 @@ class CartStore {
 
     // 3. Уведомление всех подписчиков
     #notifyObservers() {
+        console.log("Наблюдателей:", this.#observers.length);
         this.#observers.forEach(observer => {
             if (observer.update) {
                 observer.update(this.#items);
@@ -49,6 +52,7 @@ class CartStore {
 
     // 1. Подписка наблюдателя
     subscribe(observer) {
+        console.log("Подписчик добавлен", observer);
         if (!this.#observers.includes(observer)) {
             this.#observers.push(observer);
             observer.update(this.#items);
@@ -63,10 +67,11 @@ class CartStore {
         );
         if (existing) {
             existing.quantity += item.quantity;
-            existing.total = existing.total * item.quantity;
+            existing.total = existing.price * existing.quantity;
         } else {
             this.#items.push(item);
         }
+        alert('Товар добавлен в корзину!');
 
         this.#saveToStorage();
         this.#notifyObservers();
@@ -75,16 +80,16 @@ class CartStore {
     // 3. Удаление товара
     removeItem(productId, productSizeId) {
         this.#items = this.#items.filter(i =>
-            i.productId === productId && i.productSizeId === productSizeId
+            !(i.productId === productId && i.productSizeId === productSizeId)
         )
-        this.#saveToStorage;
+        this.#saveToStorage();
         this.#notifyObservers();
     }
 
     // 4. Очистка корзины
     clear() {
         this.#items = [];
-        this.#saveToStorage;
+        this.#saveToStorage();
         this.#notifyObservers();
     }
 

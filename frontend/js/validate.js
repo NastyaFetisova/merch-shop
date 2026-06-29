@@ -61,6 +61,6 @@ function validateError(btn, form) {
             input.after(errorDiv);
         }
     });
-    console.log('validateError возвращает:', !isValid);
+    
     return !isValid;
 }

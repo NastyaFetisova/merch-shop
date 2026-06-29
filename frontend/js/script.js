@@ -1,65 +1,66 @@
 'use strict';
 
 // 1. Определяем базовый URL для API
-
-//    window.location.hostname содержит адрес сайта в браузере
 const hostname = window.location.hostname;
 const isLocal = (hostname === 'localhost' || hostname === '127.0.0.1');
 const API_BASE = isLocal ? 'http://localhost:5000' : '';
 
+// 2. Импортируем Store для добавления товаров
+import cartStore from './patterns/cartStore.js';
+import ProductCardFactory from './patterns/productCardFactory.js';
+
 
 document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.catalog__products');
     const template = document.getElementById('cardTemplate');
-
-
 
     let allProducts = [];
 
+    // 3. Функция получения и отрисовки товаров
     async function getData(url) {
-        // console.log('getData вызвана, url:', url);
         try {
             const response = await fetch(url);
             const data = await response.json();
+
             document.querySelector('.catalog__products').innerHTML = '';
             allProducts = data.products;
-            data.products.forEach(element => {
-                const clone = template.content.cloneNode(true);
-                clone.querySelector('.card__photo img').src = element.image_url;
-                clone.querySelector('.card__name').textContent = element.name;
-                clone.querySelector('.card__price').textContent = element.price + ' ₽';
-                clone.querySelector('.card').dataset.id = element.id;
 
-                document.querySelector('.catalog__products').appendChild(clone);
-            });
+            const fragment = ProductCardFactory.createMany(allProducts, template);
+
+            container.appendChild(fragment);
+
         } catch (error) {
             console.error('Ошибка:', error);
         }
     }
 
-
+    // 4. Работа с модальным окном
     async function getModal() {
         try {
             await getData(`${API_BASE}/api/products`);
+
             const modalOverlay = document.querySelector('.modal-overlay');
             const modal = document.querySelector('.modal');
             const modalClose = document.querySelector('.modal__close');
             const catalogProducts = document.querySelector('.catalog__products');
+
+            // 4.1 Открытие модалки
             catalogProducts.addEventListener('click', async function (e) {
                 if (e.target.closest('.card__buy')) {
                     const card = e.target.closest('.card');
                     const cardId = card.dataset.id;
-
 
                     if (cardId) {
                         modal.dataset.productId = cardId;
                         await getCardAndSize(cardId, modal);
                     }
 
-
                     modalOverlay.classList.add('active');
                     document.body.style.overflow = 'hidden';
                 }
-            })
+            });
+
+            // 4.2 Закрытие модалки
             modal.addEventListener('click', function (e) {
                 if (e.target.closest('.modal__close') && modalOverlay.classList.contains('active')) {
                     modalOverlay.classList.remove('active');
@@ -67,10 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            //Добавить в заказ
+            // 4.3 Добавление в корзину (через Store)
             modal.addEventListener('click', function (e) {
                 if (e.target.closest('.modal__add')) {
-
                     const modalBtn = modal.querySelector('.modal__add');
 
                     if (!validateError(modalBtn, modal)) {
@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         const priceOne = modal.querySelector('.modal__price-total').dataset.price;
                         const priceTotal = Number(productCount) * Number(priceOne);
 
+                        // ✅ Создаем товар для корзины
                         const cartItem = {
                             productId: Number(productId),
                             productSizeId: Number(productSizeId),
@@ -94,46 +95,18 @@ document.addEventListener('DOMContentLoaded', function () {
                             total: priceTotal,
                         };
 
-                        addTocard(cartItem);
+                        // ✅ Добавляем через Store
+                        cartStore.addItem(cartItem);
                     }
-
-
-
                 }
-            })
+            });
+
         } catch (error) {
-            console.error('Ошибка:', error)
+            console.error('Ошибка:', error);
         }
     }
 
-    function addTocard(newItem) {
-
-        // let cart = localStorage.getItem('cart');
-
-        // if (cart === null) {
-        //     cart = [];
-        // } else {
-        //     // превращает строку обратно в массив объектов
-        //     cart = JSON.parse(cart);
-        // }
-
-        // const existingIndex = cart.findIndex(item =>
-        //     item.productId === newItem.productId &&
-        //     item.productSizeId === newItem.productSizeId
-        // );
-        // if (existingIndex !== -1) {
-        //     cart[existingIndex].quantity += newItem.quantity;
-        //     cart[existingIndex].total = cart[existingIndex].price * cart[existingIndex].quantity;
-        // } else {
-        //     cart.push(newItem);
-        // }
-
-        // в JSON формат обратно превращаем
-        // localStorage.setItem('cart', JSON.stringify(cart));
-        // alert('Товар добавлен в корзину!');
-
-    }
-
+    // 5. Функция получения данных товара и размеров
     async function getCardAndSize(id, modal) {
         try {
             const productRes = await fetch(`${API_BASE}/api/products/${id}`);
@@ -142,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const sizesQuantRes = await fetch(`${API_BASE}/api/products/${id}/sizes`);
             const sizesQuant = await sizesQuantRes.json();
 
-            // добавление единичной цены
+            // Заполняем модалку данными
             const priceTotalElem = modal.querySelector('.modal__price-total');
             priceTotalElem.setAttribute('data-price', product.price);
             priceTotalElem.textContent = product.price + ' ₽';
@@ -154,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const select = modal.querySelector('.modal__select');
             select.innerHTML = '';
+
             sizesQuant.sizes.forEach(size => {
                 const option = document.createElement('option');
                 option.value = size.size_id;
@@ -170,38 +144,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
+    // 6. Обновление цены при изменении количества
     const inputCount = document.querySelector('.input__count');
     const priceTotalElem = document.querySelector('.modal__price-total');
 
     inputCount.addEventListener('input', function (e) {
-        //считать цену товаров
         const onePrice = +priceTotalElem.getAttribute('data-price');
         const totalPrice = +e.target.value;
+
         if (onePrice && totalPrice > 0 && Number.isInteger(totalPrice) && totalPrice <= 15) {
             priceTotalElem.textContent = totalPrice * onePrice + ' ₽';
         } else {
-            priceTotalElem.textContent = "-"
+            priceTotalElem.textContent = "-";
         }
-        // убрать див с ошибкой при инпуте
+
         const divError = inputCount.nextElementSibling;
         if (divError && divError.classList.contains('error-message')) {
             divError.remove();
         }
     });
 
-    getModal();
-
-    //фильтрация формы
-
+    // 7. Фильтрация товаров
     const filterForm = document.querySelector('.filters');
-    // отрисовка карточек после фильтрации
+
     filterForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const category = filterForm.querySelector('select[name = "category"]').value;
+
+        const category = filterForm.querySelector('select[name="category"]').value;
         const sizeRadio = filterForm.querySelector('input[name="size"]:checked');
         const sizeValue = sizeRadio ? sizeRadio.value : null;
-
         const priceForm = filterForm.querySelector('input[name="price_from"]').value;
         const priceTo = filterForm.querySelector('input[name="price_to"]').value;
         const sort = filterForm.querySelector('select[name="sort"]').value;
@@ -214,30 +185,26 @@ document.addEventListener('DOMContentLoaded', function () {
         if (sort) params.sort = sort;
 
         const searchParams = new URLSearchParams(params).toString();
-
         const urlSort = `${API_BASE}/api/products/filter?${searchParams}`;
 
         await getData(urlSort);
     });
 
-    //кнопка Сбросить 
+    // 8. Сброс фильтров
     filterForm.addEventListener('click', async (e) => {
         if (e.target.closest('.filters__reset')) {
-            const catalogProducts = document.querySelector('.catalog__products');
             filterForm.reset();
-            catalogProducts.innerHTML = '';
             await getData(`${API_BASE}/api/products`);
         }
+    });
 
-    })
-
+    // 9. Прокрутка к каталогу
     const scrollBtn = document.querySelector('.main__btn-outline');
 
     scrollBtn.addEventListener('click', () => {
         const catalog = document.querySelector('.catalog');
         const header = document.querySelector('header');
         const headerHeight = header.offsetHeight;
-
         const catalogPosition = catalog.getBoundingClientRect().top + window.scrollY - headerHeight;
 
         window.scrollTo({
@@ -245,4 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
             behavior: 'smooth'
         });
     });
-})
+
+    // 10. Запуск модалки
+    getModal();
+});

@@ -1,6 +1,7 @@
 'use strict';
 
-import cartStore from "./cartStore";
+import cartStore from "./cartStore.js";
+import ProductItemFactory from "./productItemFactory.js";
 
 
 class CartUI {
@@ -28,19 +29,8 @@ class CartUI {
             return;
         }
 
-        items.forEach(item => {
-            const clone = this.template.content.cloneNode(true);
-            clone.querySelector('.cart-item__img img').src = item.productPhoto;
-            clone.querySelector('.cart-item__name').textContent = item.name;
-            clone.querySelector('.cart-item__size').textContent = `Размер: (${item.size})`;
-            clone.querySelector('.cart-item__quantity').textContent = `Количество: ${item.quantity} шт`;
-            clone.querySelector('.cart-item__price').textContent = item.total + ' ₽';
-            clone.querySelector('.cart-item').dataset.price = item.total;
-            clone.querySelector('.cart-item').dataset.productId = item.productId;
-            clone.querySelector('.cart-item').dataset.productSizeId = item.productSizeId;
-
-            this.container.appendChild(clone);
-        });
+        const fragment = ProductItemFactory.createMany(items, this.template);
+        this.container.appendChild(fragment);
         this.addRemoveListeners();
     }
 
@@ -48,7 +38,7 @@ class CartUI {
         if (!this.totalElement) return;
 
         const total = items.reduce((sum, item) => sum + item.total, 0);
-        this.totalElement = `Итого: ${total} ₽`;
+        this.totalElement.textContent = `Итого: ${total} ₽`;
     }
 
     addRemoveListeners() {
