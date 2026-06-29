@@ -9,6 +9,8 @@ class CartUI {
         this.container = document.querySelector('.cart-items');
         this.totalElement = document.querySelector('.form__btn-wrapper p');
         this.template = document.getElementById('order-card');
+
+        this.addRemoveListeners();
     }
 
     update(items) {
@@ -31,7 +33,7 @@ class CartUI {
 
         const fragment = ProductItemFactory.createMany(items, this.template);
         this.container.appendChild(fragment);
-        this.addRemoveListeners();
+
     }
 
     updateTotal(items) {

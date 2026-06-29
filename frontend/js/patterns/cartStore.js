@@ -108,9 +108,20 @@ class CartStore {
         return this.#items.reduce((sum, item) => sum + item.quantity, 0);
     }
 
+    //для теста
+    reloadFromStorage() {
+        this.#loadFromStorage();
+    }
+
+    reset() {
+        this.#items = [];
+        this.#observers = [];
+        this.#saveToStorage();
+    }
+
 }
 
-// Создаем и экспортируем ОДИН экземпляр
+export { CartStore };
 
 const cartStore = new CartStore();
 export default cartStore;
