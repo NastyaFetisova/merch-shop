@@ -7,7 +7,7 @@
 ![Express](https://img.shields.io/badge/Express-4.x-blue.svg?style=for-the-badge&logo=express&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-> Интернет-магазин с каталогом, корзиной, фильтрацией, модальным окном товара и админ-панелью.
+> Интернет-магазин с каталогом, корзиной, фильтрацией, модальными окнами и админ-панелью. Реализован как fullstack-приложение с REST API, кэшированием и применением паттернов проектирования.
 
 ---
 
@@ -29,8 +29,11 @@
 
 ---
 
-## Сайт доступен по ссылке: https://merch-shop-uiol.onrender.com 
-### (возможна долгая загрузка(особенности выбранного тарифа веб-сервиса), также потребуется VPN для успешного подключения)
+## 🌐 Демо
+
+🔗 https://merch-shop-uiol.onrender.com
+
+Возможна задержка загрузки (cold start на Render). В некоторых сетях может потребоваться VPN.
 
 ## 🚀 Быстрый старт (локальный запуск)
 
@@ -116,38 +119,109 @@ exit
 ### Открыть сайт
 http://localhost:5000
 
+## 🧠 Архитектура и паттерны
+
+Проект построен с применением следующих паттернов:
+
+### 📦 Singleton
+CartStore — единый источник состояния корзины
+### 👁 Observer
+CartUI подписывается на CartStore и автоматически обновляет интерфейс
+### 🏭 Factory
+ProductCardFactory, ProductItemFactory — генерация DOM-элементов
+### 💾 Cache + TTL
+Cache использует sessionStorage
+
+## 🧪 Тестирование
+
+Используется Vitest
+
+Покрыто:
+
+CartStore (Singleton + бизнес-логика)
+
+CartUI (рендер + observer)
+
+ProductCardFactory (DOM фабрика)
+```bash
+yarn test
+```
+
 ### 📁 Структура проекта
 
 ```plaintext
 merch-shop/
-├── backend/                    # Node.js + Express
-│   ├── config/                 # Конфигурация БД (Sequelize)
-│   ├── migrations/             # Миграции Sequelize
-│   ├── models/                 # Модели данных
-│   ├── routes/                 # API маршруты
-│   ├── public/                 # Статические файлы (картинки товаров)
-│   ├── server.js               # Точка входа (API + фронтенд)
+│
+├── backend/
+│   ├── config/
+│   │   └── database.js
+│   ├── migrations/
+│   ├── models/
+│   │   ├── index.js
+│   │   ├── product.js
+│   │   ├── category.js
+│   │   ├── size.js
+│   │   ├── order.js
+│   │   └── orderItem.js
+│   ├── routes/
+│   │   ├── products.js
+│   │   ├── orders.js
+│   │   └── admin.js
+│   ├── public/
+│   │   └── images/
+│   ├── server.js
 │   ├── package.json
-│   └── .env                    # Переменные окружения (не в Git)
-├── frontend/                   # HTML/CSS/JS (клиентская часть)
-│   ├── css/                    # Стили
-│   ├── scss/                   # SCSS исходники
-│   ├── image/                  # Изображения для интерфейса
-│   ├── index.html              # Главная страница
+│   ├── .env
+│   └── .sequelizerc
+│
+├── frontend/
+│   ├── css/
+│   │   ├── style.css
+│   │   ├── cart__style.css
+│   │   └── admin.css
+│   ├── scss/
+│   │   ├── style.scss
+│   │   ├── cart.scss
+│   │   └── admin.scss
+│   ├── image/
+│   │   ├── logo.svg
+│   │   ├── video.mp4
+│   │   └── ex.png
+│   ├── js/
+│   │   ├── patterns/
+│   │   │   ├── __tests__/
+│   │   │   │   ├── cartStore.test.js
+│   │   │   │   ├── cartUi.test.js
+│   │   │   │   └── productCardFactory.test.js
+│   │   │   │   
+│   │   │   ├── cartStore.js
+│   │   │   ├── cartUi.js
+│   │   │   ├── productCardFactory.js
+│   │   │   └── cartItemFactory.js
+│   │   │   
+│   │   │   
+│   │   ├── script.js
+│   │   ├── cart.js
+│   │   ├── admin.js
+│   │   └── validate.js
+│   ├── index.html
 │   ├── cart.html
 │   ├── admin.html
-│   └── script.js
-├── Dockerfile                  # Инструкция для сборки Docker-образа
-├── docker-compose.yml          # Оркестрация контейнеров (backend + db)
-├── .dockerignore               # Что исключить из Docker-образа
+│   ├── order.html
+│   └── care.html
+│
+├── vitest.config.js
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
 ├── .gitignore
-├── package.json                # Зависимости проекта
+├── package.json
 ├── yarn.lock
 └── README.md
 ```
 
 ### 🛠️ Технологии
-## Фронтенд
+## Frontend
 
 HTML5 / CSS3 (SCSS)
 
@@ -156,7 +230,7 @@ JavaScript (ES6+)
 Fetch API
 
 
-## Бэкенд
+## Backend
 Node.js
 
 Express.js
@@ -166,6 +240,11 @@ MySQL
 Sequelize ORM
 
 JWT (аутентификация)
+
+## Dev tools
+Vitest
+
+Docke
 
 ### ✨ Функционал
 ✅ Просмотр каталога товаров
@@ -179,6 +258,10 @@ JWT (аутентификация)
 ✅ Корзина и оформление заказа
 
 ✅ Админ-панель для управления товарами
+
+✅ Кэширование запросов (TTL)
+
+✅ REST API
 
 ### 👥 Команда проекта
 Анастасия — фронтенд, бэкенд, дизайн, база данных
